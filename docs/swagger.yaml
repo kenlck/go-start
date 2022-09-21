@@ -1,0 +1,74 @@
+basePath: /
+definitions:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  model.User:
+    properties:
+      created_at:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+      updated_at:
+        type: string
+    type: object
+info:
+  contact:
+    email: kenlck1990@gmail.com
+    name: Ken Low
+  description: This is a template for golang backend with fiber framework.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: CRM Backend
+  version: "1.0"
+paths:
+  /v1/users:
+    get:
+      description: Get all users
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.User'
+            type: array
+      summary: Get all users
+      tags:
+      - users
+  /v1/users/create:
+    post:
+      consumes:
+      - application/json
+      description: Create user
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+      summary: Create user
+      tags:
+      - users
+swagger: "2.0"

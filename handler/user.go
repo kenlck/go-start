@@ -14,6 +14,12 @@ func hashPassword(password string) (string, error) {
 	return string(bytes), err
 }
 
+// GetAllUsers get all users
+// @Summary     Get all users
+// @Description Get all users
+// @Tags        users
+// @Success     200 {object} []model.User
+// @Router      /v1/users [get]
 func GetAllUsers(ctx *fiber.Ctx) error {
 	db := database.DB
 	var users []model.User
@@ -22,6 +28,15 @@ func GetAllUsers(ctx *fiber.Ctx) error {
 	return ctx.Status(200).JSON(users)
 }
 
+// CreateUser create user
+// @Summary     Create user
+// @Description Create user
+// @Tags        users
+// @Accept      json
+// @Produce     json
+// @Param       user body model.User true "User"
+// @Success     200 {object} model.User
+// @Router      /v1/users/create [post]
 func CreateUser(ctx *fiber.Ctx) error {
 	type incomingUser struct {
 		Password string `json:"password"`
