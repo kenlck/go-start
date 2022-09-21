@@ -14,7 +14,9 @@ func ConnectDB() {
 	var err error
 	p := config.DB_PORT
 	port, _ := strconv.ParseUint(p, 10, 32)
-	dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", config.DB_HOST, port, config.DB_USER, config.DB_PASSWORD, config.DB_NAME)
+	// dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s", config.DB_HOST, port, config.DB_USER, config.DB_PASSWORD, config.DB_NAME)
+	dsn := fmt.Sprintf("postgres://%s:%s@%s:%d/%s", config.DB_USER, config.DB_PASSWORD, config.DB_HOST, port, config.DB_NAME)
+
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {

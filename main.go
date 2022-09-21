@@ -3,6 +3,7 @@ package main
 import (
 	"crm_backend/config"
 	"crm_backend/database"
+	"crm_backend/router"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -12,9 +13,7 @@ func main() {
 	config.LoadEnv()
 	database.ConnectDB()
 
-	app.Get("/", func(ctx *fiber.Ctx) error {
-		return ctx.SendString("Hello world!")
-	})
+	router.SetupRoutes(app)
 
 	err := app.Listen("localhost:8080")
 
